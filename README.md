@@ -130,9 +130,9 @@ ollama run gemma3:12b "What is 2+2?"
 
 See the visual demonstration above for sample questions and answers showing the RAG system in action with Bengali language support and real-time streaming responses.
 
-## 📚 API Documentation
+## 📚 Code Documentation
 
-### PDF Processing API
+### PDF Processing Functions
 ```python
 from bangla_pdf_ocr import process_pdf
 
@@ -150,7 +150,7 @@ def extract_text(input_pdf, output_file, language="ben"):
     """
 ```
 
-### Vector Database API
+### Vector Database Functions
 ```python
 def get_vectorstore():
     """
@@ -161,7 +161,7 @@ def get_vectorstore():
     """
 ```
 
-### Chat Interface API
+### Chat Interface Functions
 ```python
 def retrieve_context(query: str) -> str:
     """
@@ -588,18 +588,6 @@ streamlit run ollama_app.py
 - **Streaming chat interface** with real-time responses
 - **Vector database** with persistent storage
 - **No bonus tasks** were implemented in this version
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## 📍 Repository
-
-**GitHub Repository**: [https://github.com/1203mueed/10-min-school-assessment.git](https://github.com/1203mueed/10-min-school-assessment.git)
 
 ## Acknowledgments
 
