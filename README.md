@@ -128,19 +128,7 @@ ollama run gemma3:12b "What is 2+2?"
 
 ## 💬 Sample Queries and Outputs
 
-### Bengali Queries
-**Query**: "বাংলা সাহিত্যের ইতিহাস সম্পর্কে বলুন"
-**Output**: "বাংলা সাহিত্যের ইতিহাস অত্যন্ত সমৃদ্ধ। প্রাচীন বাংলা সাহিত্য চর্যাপদ দিয়ে শুরু হয়েছিল। মধ্যযুগে বৈষ্ণব পদাবলী, মঙ্গলকাব্য প্রভৃতি রচিত হয়। আধুনিক যুগে রবীন্দ্রনাথ ঠাকুর, কাজী নজরুল ইসলাম প্রমুখ কবি সাহিত্যিক বাংলা সাহিত্যকে বিশ্বমঞ্চে তুলে ধরেছেন..."
-
-**Query**: "রবীন্দ্রনাথ ঠাকুরের সাহিত্যকর্মের বৈশিষ্ট্য কী?"
-**Output**: "রবীন্দ্রনাথ ঠাকুরের সাহিত্যকর্মের প্রধান বৈশিষ্ট্যগুলি হল: ১) মানবতাবাদী দর্শন, ২) প্রকৃতির সাথে মানুষের মিলন, ৩) বিশ্বজনীনতা, ৪) আধ্যাত্মিকতা, ৫) সামাজিক সংস্কার..."
-
-### English Queries
-**Query**: "What are the main themes in Bengali literature?"
-**Output**: "The main themes in Bengali literature include: 1) Humanism and universal love, 2) Nature and spirituality, 3) Social reform and progress, 4) Nationalism and cultural identity, 5) Mysticism and philosophical inquiry..."
-
-**Query**: "Explain the significance of Tagore's Nobel Prize"
-**Output**: "Rabindranath Tagore's Nobel Prize in Literature (1913) was significant because: 1) It was the first Nobel Prize for an Asian writer, 2) It brought global recognition to Bengali literature, 3) It highlighted the rich cultural heritage of India..."
+See the visual demonstration above for sample questions and answers showing the RAG system in action with Bengali language support and real-time streaming responses.
 
 ## 📚 API Documentation
 
@@ -291,7 +279,7 @@ text_splitter = RecursiveCharacterTextSplitter(
 
 **Q: What embedding model did you use? Why did you choose it? How does it capture the meaning of the text?**
 
-**A:** I chose **Snowflake Arctic Embed v2** for the following reasons:
+**A:** Finding the right embedding model was the **main challenge** in this project. After testing several models, I chose **Snowflake Arctic Embed v2** for the following reasons:
 
 ```python
 from langchain_ollama import OllamaEmbeddings
@@ -305,6 +293,12 @@ embeddings = OllamaEmbeddings(model="snowflake-arctic-embed2")
 3. **State-of-the-Art**: Latest advances in embedding technology
 4. **Local Deployment**: Runs efficiently on local hardware
 5. **Bengali Optimization**: Specifically trained on diverse language data
+
+**Challenges Faced:**
+- **Initial Models**: Tried several embedding models that performed poorly on Bengali text
+- **Language Support**: Many models lacked proper Bengali language understanding
+- **Semantic Quality**: Found models that couldn't capture Bengali cultural and linguistic nuances
+- **Performance**: Some models were too slow or resource-intensive for local deployment
 
 **How It Captures Meaning:**
 - **Contextual Understanding**: Considers surrounding words and phrases
