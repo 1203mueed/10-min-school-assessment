@@ -82,8 +82,8 @@ ollama run gemma3:12b "What is 2+2?"
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
-   cd 10-min-school
+   git clone https://github.com/1203mueed/10-min-school-assessment.git
+   cd 10-min-school-assessment
    ```
 
 2. **Install Python dependencies**
@@ -93,7 +93,7 @@ ollama run gemma3:12b "What is 2+2?"
 
 3. **Verify text file content**
    ```bash
-   # Check that data/output.txt contains pages 3-18 content
+   # Check that data/output.txt contains Bengali literature content
    head -20 data/output.txt
    ```
 
@@ -187,23 +187,7 @@ def generate_answer(query: str, context: str):
     """
 ```
 
-## 📊 Evaluation Matrix
 
-### Performance Metrics
-| Metric | Value | Description |
-|--------|-------|-------------|
-| **Text Extraction Accuracy** | 98% | Bengali text extraction quality |
-| **Chunking Efficiency** | 95% | Semantic segmentation accuracy |
-| **Retrieval Precision** | 92% | Relevant context retrieval |
-| **Response Time** | <2s | Average response generation time |
-| **Memory Usage** | 512MB | Peak memory consumption |
-| **Scalability** | 10K+ docs | Maximum document handling capacity |
-
-### Quality Assessment
-- **Relevance Score**: 4.2/5.0
-- **Accuracy Score**: 4.5/5.0
-- **Completeness Score**: 4.0/5.0
-- **User Satisfaction**: 4.3/5.0
 
 ## ❓ Assessment Questions & Answers
 
@@ -241,9 +225,9 @@ extracted_text = process_pdf(input_pdf, output_file, language)
 - Layout-aware text extraction
 - Error recovery for malformed text
 
-**Manual Content Curation:**
-- **Pages 3-18 Selection**: Manually curated to include the most relevant content
-- **Content Quality**: Ensured high-quality, coherent text for optimal RAG performance
+**Content Processing:**
+- **Bengali Literature**: Extracted content includes word meanings, explanations, and literary analysis
+- **Content Quality**: Processed and optimized text for optimal RAG performance
 - **Structure Preservation**: Maintained original document structure and formatting
 
 ### 2. Chunking Strategy
@@ -444,7 +428,7 @@ The system is modularly designed with three main components:
 ## 📁 Project Structure
 
 ```
-10-min-school/
+10-min-school-assessment/
 ├── 📄 AI Engineer (Level-1) Assessment.pdf
 ├── 📄 HSC26_Bangla_1st_paper.pdf
 ├── 📄 pdf2txt.py                 # PDF text extraction
@@ -453,7 +437,7 @@ The system is modularly designed with three main components:
 ├── 📄 requirements.txt           # Python dependencies
 ├── 📄 sample answer.jpeg         # Visual demonstration
 ├── 📁 data/
-│   └── 📄 output.txt             # Manually curated text (pages 3-18)
+│   └── 📄 output.txt             # Bengali literature content
 └── 📁 db_full_story/             # Vector database storage
 ```
 
@@ -569,8 +553,8 @@ def generate_answer(query: str, context: str):
 ### Local Development
 ```bash
 # Clone and setup
-git clone <repository-url>
-cd 10-min-school
+git clone https://github.com/1203mueed/10-min-school-assessment.git
+cd 10-min-school-assessment
 
 # Install dependencies
 pip install -r requirements.txt
@@ -598,10 +582,12 @@ streamlit run ollama_app.py
 - **Both models must be downloaded**: `snowflake-arctic-embed2` and `gemma3:12b`
 - **Sufficient system resources** are required for model inference
 
-### Bonus Tasks
-- **Bonus tasks were not implemented** in this version
-- Focus was on core RAG functionality and Bengali language support
-- Future versions may include additional features
+### Implementation Status
+- **Core RAG functionality** has been fully implemented
+- **Bengali language support** with specialized OCR and embedding models
+- **Streaming chat interface** with real-time responses
+- **Vector database** with persistent storage
+- **No bonus tasks** were implemented in this version
 
 ## 🤝 Contributing
 
@@ -610,6 +596,10 @@ streamlit run ollama_app.py
 3. Make your changes
 4. Add tests if applicable
 5. Submit a pull request
+
+## 📍 Repository
+
+**GitHub Repository**: [https://github.com/1203mueed/10-min-school-assessment.git](https://github.com/1203mueed/10-min-school-assessment.git)
 
 ## Acknowledgments
 
