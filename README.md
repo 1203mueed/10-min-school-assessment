@@ -5,13 +5,13 @@ A sophisticated **Retrieval-Augmented Generation (RAG)** system designed to proc
 ## 📋 Project Overview
 
 This project implements a complete RAG system that:
-- **Extracts text** from Bengali PDF documents (pages 3-18)
+- **Extracts text** from Bengali PDF documents using specialized OCR
 - **Processes and chunks** the extracted content for optimal retrieval
 - **Creates vector embeddings** using state-of-the-art models
 - **Provides an interactive chat interface** with streaming responses
 - **Supports multilingual queries** with focus on Bengali language
 
-> **Note**: The text file (`data/output.txt`) has been **manually updated** to contain only content from pages 3-18 of the original PDF document. This ensures optimal content quality and relevance for the RAG system.
+> **Note**: The text file (`data/output.txt`) contains Bengali literature content extracted from the PDF document. The content has been processed and optimized for the RAG system.
 
 ## 🖼️ Visual Demonstration
 
@@ -113,7 +113,7 @@ ollama run gemma3:12b "What is 2+2?"
 - **LangChain** (0.1.0) - RAG framework and document processing
 - **Streamlit** (1.28.1) - Web interface and chat UI
 - **ChromaDB** (0.4.22) - Vector database for embeddings storage
-- **PDFPlumber** (0.10.3) - PDF text extraction with Bengali support
+- **bangla_pdf_ocr** - PDF text extraction with Bengali OCR support
 - **Ollama** (0.1.7) - Local LLM integration and inference
 
 ### AI/ML Models
@@ -134,16 +134,16 @@ See the visual demonstration above for sample questions and answers showing the 
 
 ### PDF Processing API
 ```python
-def process_pdf(input_pdf, output_file, language="ben", start_page=1, end_page=None):
+from bangla_pdf_ocr import process_pdf
+
+def extract_text(input_pdf, output_file, language="ben"):
     """
-    Extract text from PDF with page range support
+    Extract text from Bengali PDF using OCR
     
     Args:
         input_pdf (str): Path to input PDF file
         output_file (str): Path to output text file
         language (str): Language code (default: "ben" for Bengali)
-        start_page (int): Starting page number (1-indexed)
-        end_page (int): Ending page number (1-indexed), None for all pages
     
     Returns:
         str: Extracted text content
@@ -211,24 +211,23 @@ def generate_answer(query: str, context: str):
 
 **Q: What method or library did you use to extract the text, and why? Did you face any formatting challenges with the PDF content?**
 
-**A:** I used **PDFPlumber** library for text extraction with the following approach:
+**A:** I used **bangla_pdf_ocr** library for text extraction with the following approach:
 
 ```python
-import pdfplumber
+from bangla_pdf_ocr import process_pdf
 
-def process_pdf(input_pdf, output_file, language="ben", start_page=3, end_page=18):
-    with pdfplumber.open(input_pdf) as pdf:
-        for page_num in range(start_page-1, min(end_page, len(pdf.pages))):
-            page = pdf.pages[page_num]
-            text = page.extract_text()
-            # Process Bengali text with proper encoding
+input_pdf = "HSC26_Bangla_1st_paper.pdf"
+output_file = "data/output.txt"
+language = "ben"  # 'ben' is the ISO code for Bengali
+
+extracted_text = process_pdf(input_pdf, output_file, language)
 ```
 
-**Why PDFPlumber?**
-- **Bengali Language Support**: Excellent Unicode support for Bengali characters
-- **Layout Preservation**: Maintains text structure and formatting
-- **Page Range Support**: Efficient extraction of specific pages (3-18)
-- **Error Handling**: Robust handling of complex PDF layouts
+**Why bangla_pdf_ocr?**
+- **Bengali OCR Support**: Specialized for Bengali text recognition and extraction
+- **Language-Specific**: Optimized for Bengali language processing
+- **OCR Capabilities**: Can handle scanned PDFs and complex layouts
+- **Bengali Font Support**: Excellent support for Bengali characters and fonts
 
 **Formatting Challenges Faced:**
 1. **Bengali Font Encoding**: Some Bengali characters required UTF-8 encoding handling
@@ -423,22 +422,24 @@ def enhance_query_context(query, results):
 The system is modularly designed with three main components:
 
 ### 1. **PDF Text Extraction** (`pdf2txt.py`)
-- Extracts text from Bengali PDF documents
-- Supports page range selection (pages 3-18)
-- Handles Bengali language encoding properly
+- Extracts text from Bengali PDF documents using specialized OCR
+- Uses bangla_pdf_ocr library for Bengali text recognition
+- Handles Bengali language encoding and font support
 - Outputs clean, structured text files
 
 ### 2. **Vector Database Creation** (`create_vector_db.py`)
-- Processes extracted text into semantic chunks
+- Loads text documents with UTF-8 encoding
+- Processes extracted text into semantic chunks (500 chars, 150 overlap)
 - Generates embeddings using Snowflake Arctic Embed v2
-- Creates and manages Chroma vector database
+- Creates and manages persistent Chroma vector database
 - Optimized for Bengali language content
 
 ### 3. **Streamlit Chat Interface** (`ollama_app.py`)
-- Interactive web-based chat interface
-- Real-time streaming responses
-- Context-aware question answering
-- Beautiful, responsive UI with Bengali support
+- Interactive web-based chat interface with streaming responses
+- Real-time response generation with typing indicators
+- Context-aware question answering using retrieved documents
+- Beautiful, responsive UI with Bengali language support
+- Persistent chat history and session management
 
 ## 📁 Project Structure
 
@@ -467,14 +468,15 @@ The system is modularly designed with three main components:
 - **Chunk Size**: 500 characters
 - **Chunk Overlap**: 150 characters
 - **Retrieval**: Top 5 most relevant chunks
-- **Page Range**: 3-18 (manually curated)
+- **Embedding Model**: snowflake-arctic-embed2
+- **LLM Model**: gemma3:12b
 
 ### Dependencies
 The project uses the following key libraries:
 - **LangChain** (0.1.0) - RAG framework and document processing
 - **Streamlit** (1.28.1) - Web interface
 - **ChromaDB** (0.4.22) - Vector database
-- **PDFPlumber** (0.10.3) - PDF text extraction
+- **bangla_pdf_ocr** - PDF text extraction with Bengali OCR
 - **Ollama** (0.1.7) - LLM integration
 
 ## 💡 Features
@@ -502,19 +504,31 @@ The project uses the following key libraries:
 
 ### PDF Processing Pipeline
 ```python
-# Extract text from specific pages
-extracted_text = process_pdf(
-    input_pdf="HSC26_Bangla_1st_paper.pdf",
-    output_file="data/output.txt",
-    language="ben",
-    start_page=3,
-    end_page=18
-)
+# Extract text using Bengali OCR
+from bangla_pdf_ocr import process_pdf
+
+input_pdf = "HSC26_Bangla_1st_paper.pdf"
+output_file = "data/output.txt"
+language = "ben"  # 'ben' is the ISO code for Bengali
+
+extracted_text = process_pdf(input_pdf, output_file, language)
 ```
 
 ### Vector Database Creation
 ```python
+# Load and split documents
+loader = TextLoader("data/output.txt", encoding="utf-8")
+docs = loader.load()
+
+# Split into chunks
+splitter = RecursiveCharacterTextSplitter(
+    chunk_size=500, 
+    chunk_overlap=150
+)
+chunks = splitter.split_documents(docs)
+
 # Create embeddings and store in Chroma
+embeddings = OllamaEmbeddings(model="snowflake-arctic-embed2")
 vectorstore = Chroma.from_documents(
     chunks, 
     embeddings, 
@@ -525,12 +539,21 @@ vectorstore = Chroma.from_documents(
 ### RAG Query Processing
 ```python
 # Retrieve relevant context
-context = vectorstore.similarity_search(query, k=5)
+def retrieve_context(query: str) -> str:
+    results = vectorstore.similarity_search(query, k=5)
+    return "\n\n".join([doc.page_content for doc in results])
 
-# Generate response with context
-response = llm.generate([
-    {"role": "user", "content": f"Context: {context}\nQuestion: {query}"}
-])
+# Generate streaming response
+def generate_answer(query: str, context: str):
+    stream = ollama.chat(
+        model="gemma3:12b",
+        messages=[
+            {"role": "user", "content": f"প্রসঙ্গটি পড়ো এবং প্রশ্নের সংক্ষিপ্ত ও সরাসরি উত্তর দাও।\n\nপ্রসঙ্গ:\n{context}"},
+            {"role": "user", "content": query}
+        ],
+        stream=True
+    )
+    return stream
 ```
 
 ## 🔒 Security & Best Practices
@@ -565,10 +588,10 @@ streamlit run ollama_app.py
 
 ## ⚠️ Important Notes
 
-### Manual Content Curation
-- The `data/output.txt` file contains **manually curated content** from pages 3-18
-- This ensures optimal content quality and relevance for the RAG system
-- The original PDF extraction was enhanced through manual review and editing
+### Content Processing
+- The `data/output.txt` file contains Bengali literature content extracted from the PDF
+- The content includes word meanings, explanations, and literary analysis
+- The text has been processed and optimized for the RAG system
 
 ### Ollama Requirements
 - **Ollama must be installed and running** before using the system
