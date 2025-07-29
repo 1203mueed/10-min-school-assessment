@@ -361,13 +361,6 @@ def enhance_query_context(query, results):
 
 **Q: Do the results seem relevant? If not, what might improve them (e.g. better chunking, better embedding model, larger document)?**
 
-**A:** The results show **high relevance** (92% precision), but here are potential improvements:
-
-**Current Performance:**
-- **Relevance Score**: 4.2/5.0
-- **Accuracy**: 95% for Bengali queries
-- **Response Quality**: Contextually appropriate answers
-
 **Potential Improvements:**
 
 1. **Enhanced Chunking:**
@@ -589,10 +582,3 @@ streamlit run ollama_app.py
 - **Vector database** with persistent storage
 - **No bonus tasks** were implemented in this version
 
-## Acknowledgments
-
-- **Ollama** for providing the LLM infrastructure
-- **LangChain** for the RAG framework
-- **Streamlit** for the web interface
-- **Chroma** for vector database capabilities
-- **Snowflake** for embedding models
